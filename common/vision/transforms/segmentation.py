@@ -171,8 +171,8 @@ class RandomResizedCrop(T.RandomResizedCrop):
         interpolation: Default: PIL.Image.BILINEAR
     """
 
-    def __init__(self, size, scale=(0.5, 1.0), ratio=(3. / 4., 4. / 3.), interpolation=Image.BICUBIC):
-        super(RandomResizedCrop, self).__init__(size, scale, ratio, interpolation)
+    def __init__(self, size, scale=(0.5, 1.0), ratio=(3. / 4., 4. / 3.)):
+        super(RandomResizedCrop, self).__init__(size, scale, ratio)
 
     @staticmethod
     def get_params(
@@ -188,7 +188,7 @@ class RandomResizedCrop(T.RandomResizedCrop):
         Returns:
             params (i, j, h, w) to be passed to ``crop`` for a random sized crop.
         """
-        width, height = F._get_image_size(img)
+        width, height = F.get_image_size(img)
         area = height * width
 
         for _ in range(10):
@@ -230,7 +230,7 @@ class RandomResizedCrop(T.RandomResizedCrop):
         """
         top, left, height, width = self.get_params(image, self.scale, self.ratio)
         image = image.crop((left, top, left + width, top + height))
-        image = image.resize(self.size, self.interpolation)
+        image = image.resize(self.size, Image.BICUBIC)
         label = label.crop((left, top, left + width, top + height))
         label = label.resize(self.size, Image.NEAREST)
         return image, label

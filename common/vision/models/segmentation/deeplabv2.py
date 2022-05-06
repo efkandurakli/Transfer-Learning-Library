@@ -3,7 +3,7 @@
 @contact: JiangJunguang1123@outlook.com
 """
 import torch.nn as nn
-from torchvision.models.utils import load_state_dict_from_url
+from torch.hub import load_state_dict_from_url
 
 
 model_urls = {
