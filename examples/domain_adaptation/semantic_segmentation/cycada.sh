@@ -1,7 +1,8 @@
 # GTA5 to Cityscapes
 # First, train the CycleGAN
-CUDA_VISIBLE_DEVICES=0 python cycada.py /home/duraklefkan/Desktop/Datasets/GTA5 /home/duraklefkan/Desktop/Datasets/Cityscapes \
-    -s GTA5 -t Cityscapes --log logs/cycada/gtav2cityscapes --translated-root data/GTA52Cityscapes/cycada_39
+CUDA_VISIBLE_DEVICES=0 python cycada.py /home/duraklefkan/Desktop/Academic/MasterThesis/DomainAdaptation/Datasets2/MUCSS_dataset/PotsdamIRRG \
+    /home/duraklefkan/Desktop/Academic/MasterThesis/DomainAdaptation/Datasets2/MUCSS_dataset/Vaihingen \
+    -s PotsdamIRRG -t Vaihingen --log logs/cycada/gtav2cityscapes --translated-root data/PotsdamIRRG2Vaihingen/cycada_39
 # Then, train the src_only model on the translated source dataset
 # CUDA_VISIBLE_DEVICES=0 python source_only.py data/GTA52Cityscapes/cycada_39 data/Cityscapes \
 #     -s GTA5 -t Cityscapes --log logs/cycada_src_only/gtav2cityscapes

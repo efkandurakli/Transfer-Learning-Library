@@ -8,6 +8,8 @@ import warnings
 import sys
 import argparse
 import itertools
+from cv2 import split
+import numpy as np
 
 import torch
 import torch.nn as nn
@@ -57,12 +59,12 @@ def main(args):
         T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
     source_dataset = datasets.__dict__[args.source]
-    train_source_dataset = source_dataset(root=args.source_root, transforms=train_transform)
+    train_source_dataset = source_dataset(root=args.source_root, split='all', transforms=train_transform)
     train_source_loader = DataLoader(train_source_dataset, batch_size=args.batch_size,
                                      shuffle=True, num_workers=args.workers, pin_memory=True, drop_last=True)
 
     target_dataset = datasets.__dict__[args.target]
-    train_target_dataset = target_dataset(root=args.target_root, transforms=train_transform)
+    train_target_dataset = target_dataset(root=args.target_root, split='train', transforms=train_transform)
     train_target_loader = DataLoader(train_target_dataset, batch_size=args.batch_size,
                                      shuffle=True, num_workers=args.workers, pin_memory=True, drop_last=True)
 

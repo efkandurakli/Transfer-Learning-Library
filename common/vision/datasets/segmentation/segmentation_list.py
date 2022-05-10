@@ -95,13 +95,14 @@ class SegmentationList(data.Dataset):
         # remap label
         if isinstance(label, torch.Tensor):
             label = label.numpy()
-        label = np.asarray(label, np.int64)
+        label = np.asarray(label, np.int64) - 1 # to start index with zero
         label_copy = self.ignore_label * np.ones(label.shape, dtype=np.int64)
         if self.id_to_train_id:
             for k, v in self.id_to_train_id.items():
                 label_copy[label == k] = v
-
-        return image, label_copy.copy()
+        if self.id_to_train_id:
+            return image, label_copy.copy()
+        return image, label.copy()
 
     @property
     def num_classes(self) -> int:
