@@ -75,7 +75,7 @@ def main(args: argparse.Namespace):
     train_target_loader = DataLoader(train_target_dataset, batch_size=args.batch_size,
                                      shuffle=True, num_workers=args.workers, pin_memory=True, drop_last=True)
     val_target_dataset = target_dataset(
-        root=args.target_root, split='val',
+        root=args.target_root, split='test',
         transforms=T.Compose([
             T.Resize(image_size=args.test_input_size, label_size=args.test_output_size),
             T.NormalizeAndTranspose(),
